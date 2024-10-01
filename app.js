@@ -1,10 +1,8 @@
-// Initialize the task list by fetching from localStorage
 document.addEventListener('DOMContentLoaded', loadTasks);
 
 const taskForm = document.getElementById('taskForm');
 const taskList = document.getElementById('taskList');
 
-// Listen for form submission to create a new task
 taskForm.addEventListener('submit', function(event) {
     event.preventDefault();
     const taskDate = document.getElementById('taskDate').value;
@@ -16,7 +14,6 @@ taskForm.addEventListener('submit', function(event) {
     }
 });
 
-// Load tasks from localStorage
 function loadTasks() {
     const tasks = getTasksFromStorage();
     tasks.forEach(task => {
@@ -24,7 +21,6 @@ function loadTasks() {
     });
 }
 
-// Add new task
 function addTask(date, text) {
     const task = { id: Date.now(), date, text };
     const tasks = getTasksFromStorage();
@@ -33,7 +29,6 @@ function addTask(date, text) {
     displayTask(task);
 }
 
-// Display task in the list
 function displayTask(task) {
     const taskElement = document.createElement('div');
     taskElement.classList.add('task-item');
@@ -58,12 +53,10 @@ function displayTask(task) {
     });
 }
 
-// Get tasks from localStorage
 function getTasksFromStorage() {
     return localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks')) : [];
 }
 
-// Edit a task
 function editTask(task) {
     const newDate = prompt('Edit the date:', task.date);
     const newText = prompt('Edit the task:', task.text);
@@ -83,7 +76,6 @@ function editTask(task) {
     }
 }
 
-// Delete a task
 function deleteTask(taskElement, taskId) {
     taskElement.remove();
     const tasks = getTasksFromStorage();
@@ -91,7 +83,6 @@ function deleteTask(taskElement, taskId) {
     localStorage.setItem('tasks', JSON.stringify(updatedTasks));
 }
 
-// Refresh task list after edit
 function refreshTaskList() {
     taskList.innerHTML = ''; // Clear the list
     loadTasks(); // Reload the list
